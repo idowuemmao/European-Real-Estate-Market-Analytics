@@ -9,7 +9,8 @@
 
 **A production-grade, investor-ready Power BI report analysing 5,000 property listings across 10 EU cities — built with a full star schema, 30+ DAX measures, 4 report page tooltips, and a drill-through property deep-dive layer.**
 
-[Report Overview](#-report-overview) · [Data Model](#-data-model) · [Report Pages](#-report-pages) · [DAX Measures](#-dax-measures) · [Tooltips](#-report-page-tooltips) · [Key Insights](#-key-insights) · [Setup](#-setup--installation)
+[Report Overview](#-report-<img width="1459" height="821" alt="Screenshot_10" src="https://github.com/user-attachments/assets/cc35aa1e-cdb7-4818-a982-59a67245d56b" />
+overview) · [Data Model](#-data-model) · [Report Pages](#-report-pages) · [DAX Measures](#-dax-measures) · [Tooltips](#-report-page-tooltips) · [Key Insights](#-key-insights) · [Setup](#-setup--installation)
 
 </div>
 
@@ -41,7 +42,7 @@ The report covers the complete analytics lifecycle: raw data → star schema dat
 
 The entry page of the report. A **KPI parameter slicer** drives every visual on the page — selecting any of the 6 KPI cards (Total Listings, Avg Sale Price, Avg Price/m², Avg Days on Market, Price Appreciation, Avg Rent/Month) dynamically updates all charts to plot that metric.
 
-![Page 1 — Market Overview](./assets/page1_overview.png)
+<img width="1459" height="821" alt="Screenshot_10" src="https://github.com/user-attachments/assets/4ed4319f-dccd-4c2c-9014-1cc8421c7c83" />
 
 **Key visuals:**
 - **ZoomCharts timeline series** — Selected parameter trending by Year → Quarter → Month → Day with full drill hierarchy
@@ -59,7 +60,7 @@ The entry page of the report. A **KPI parameter slicer** drives every visual on 
 
 The analytical engine of the report. Every visual answers a specific pricing question about property size, age, floor level, bedroom count, and amenity configuration.
 
-![Page 2 — Property DNA](./assets/page2_drivers.png)
+<img width="1459" height="822" alt="Screenshot_15" src="https://github.com/user-attachments/assets/1a1d102a-99bb-4d33-aa90-c5c3dafaba96" />
 
 **Key visuals:**
 - **Clustered column + line combo** — Avg Sale Price and Total Listings by Building Decade with drill-down to year_built
@@ -75,7 +76,7 @@ The analytical engine of the report. Every visual answers a specific pricing que
 
 The strategic layer of the report. Built specifically for property investors and fund analysts, this page surfaces yield signals, absorption velocity, stale listing risk, and opportunity scoring in a single ranked view.
 
-![Page 3 — Investor Intelligence](./assets/page3_intelligence.png)
+<img width="1458" height="821" alt="Screenshot_9" src="https://github.com/user-attachments/assets/1103e5eb-8bf7-453e-969b-88bf2f587156" />
 
 **Key visuals:**
 - **Clustered column + line combo** — Price Appreciation % (bar) and Opportunity Score (line) by Country-City, sorted by score
@@ -90,7 +91,7 @@ The strategic layer of the report. Built specifically for property investors and
 
 Triggered by right-clicking any visual containing `listing_type` and selecting Drill-Through. The page renders a property-level matrix showing all individual listings filtered to the selected type (Sale or Rental) with full column detail, amenity icons, and a report page tooltip on every row.
 
-![Drill-Through — Property Deep Dive](./assets/drillthrough_deepdive.png)
+<img width="1460" height="821" alt="Screenshot_16" src="https://github.com/user-attachments/assets/9f71ec61-2ce7-4dcc-a8cf-2411d2b7090e" />
 
 **Matrix columns:** Property ID · Property Type · Listing Date · Rent/Sales price · Property Size · Price/m² · Building Age · Days on Market · No of Floors · No of Bedrooms · No of Bathrooms · Amenity Index (with trend arrows)
 
