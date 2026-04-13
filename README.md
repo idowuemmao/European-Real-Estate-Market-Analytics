@@ -9,8 +9,7 @@
 
 **A production-grade, investor-ready Power BI report analysing 5,000 property listings across 10 EU cities — built with a full star schema, 30+ DAX measures, 4 report page tooltips, and a drill-through property deep-dive layer.**
 
-[Report Overview](#-report-<img width="1459" height="821" alt="Screenshot_10" src="https://github.com/user-attachments/assets/cc35aa1e-cdb7-4818-a982-59a67245d56b" />
-overview) · [Data Model](#-data-model) · [Report Pages](#-report-pages) · [DAX Measures](#-dax-measures) · [Tooltips](#-report-page-tooltips) · [Key Insights](#-key-insights) · [Setup](#-setup--installation)
+[Report Overview](#-report-overview) · [Data Model](#-data-model) · [Report Pages](#-report-pages) · [DAX Measures](#-dax-measures) · [Tooltips](#-report-page-tooltips) · [Key Insights](#-key-insights) · [Setup](#-setup--installation)
 
 </div>
 
