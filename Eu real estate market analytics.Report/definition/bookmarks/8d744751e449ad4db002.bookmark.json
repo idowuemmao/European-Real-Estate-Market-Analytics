@@ -1,0 +1,1079 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Page 3 Info",
+  "name": "8d744751e449ad4db002",
+  "options": {
+    "targetVisualNames": [
+      "d28438d8c9bac5ac316b"
+    ],
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "b36f12f4c2957530efba",
+    "sections": {
+      "b36f12f4c2957530efba": {
+        "visualContainers": {
+          "18d9f494adb7db31d741": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "d99acf835782b54dc874",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Market Blended Yield"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b1e432f28831a6f2d4b0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "High Value Slow Count"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1faf5b6a8226d49948b9",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg DOM Stale"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "8202e80947b517ea3cb7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Opportunity Score"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "9eac97c75900dc00a051",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Price Appreciation %"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "321a752e888106779819",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Parking Spots"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Market Blended Yield"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "c67e8a062900a3ca4015": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "a279a9a893a2fdc2dda5",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimPropertyType"
+                        }
+                      },
+                      "Property": "property_type"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a6a894bc770c406fcc3c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Days on Market"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "ZoomChartsDrillDownComboBarProE77E4ED357DC402ABA005987437CF800",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Days on Market"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "36f626e63fd00c277e0c": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "049d92decc76429f294d",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactEURealEstateDataset"
+                        }
+                      },
+                      "Property": "Building Decade"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactEURealEstateDataset"
+                        }
+                      },
+                      "Property": "Building Decade"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "ac8cded9080dd0b26177": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "9f4f352b70367c97eb37",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactEURealEstateDataset"
+                        }
+                      },
+                      "Property": "energy_rating"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactEURealEstateDataset"
+                        }
+                      },
+                      "Property": "energy_rating"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "0c0f5fceda7bdd7b68d8": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "c3725b43cfbf5155609c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactEURealEstateDataset"
+                        }
+                      },
+                      "Property": "Bedroom Bucket"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactEURealEstateDataset"
+                        }
+                      },
+                      "Property": "Bedroom Bucket"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "5ba12f20314b87aea3cb": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "ff47f3b7b349a5e93881": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "e6c6b56a8b23c4ac9fce": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "fbbe1604b59b283f17aa": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "98135ac28f1de2dd6d37": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "025f0f64edcc96ada85b": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "3a65b7623a7e4c76c17a": {
+            "singleVisual": {
+              "visualType": "pageNavigator",
+              "objects": {}
+            }
+          },
+          "ef27443c2ecb8a79e88c": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "c28b8c73015b6dba5846",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Total Listings"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "20bcdd450c4771bcfb1d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Sale Price EUR"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1757efc505677153b288",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactEURealEstateDataset"
+                        }
+                      },
+                      "Property": "DOM Velocity Category"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "ZoomChartsFacetChartPaidE77E4ED357DC402ABA005987437CF500",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Total Listings"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "2d64cd566f3de5b0a741": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "0cc1757a4e79a4045ac3",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactEURealEstateDataset"
+                        }
+                      },
+                      "Property": "furnishing_status"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactEURealEstateDataset"
+                        }
+                      },
+                      "Property": "furnishing_status"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "7a30d16f2f90970f70a3": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "3fdd32c5535d82297992",
+                  "type": "Advanced",
+                  "expression": {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "DimDate"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "listing_date"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Year"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "9e725293038f1d55882d",
+                  "type": "Categorical",
+                  "expression": {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "DimDate"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "listing_date"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Quarter"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ad8c436db949eab608c8",
+                  "type": "Categorical",
+                  "expression": {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "DimDate"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "listing_date"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Month"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "581fccd987f4798b8c02",
+                  "type": "Advanced",
+                  "expression": {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "DimDate"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "listing_date"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Day"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "DimDate"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "listing_date"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Year"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "d8a1c934058bdf3fdd39": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "157947744a6252824258",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Price Appreciation %"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ebcf22dd86f032b80935",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Opportunity Score"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "5225814ad3eb97462877",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimLocation"
+                        }
+                      },
+                      "Property": "Country-City"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "ZoomChartsFacetChartPaidE77E4ED357DC402ABA005987437CF500",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimLocation"
+                        }
+                      },
+                      "Property": "Country-City"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "8054940bbcb7353e4568": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "cf81dda2ad2311ab9f90",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Sale Price EUR"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "68b4e2980f7a8b546a9b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Price Per SQM"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "fa206c71a411dec268ea",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Opportunity Score"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "5c4129b6b15542d717ba",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Days on Market"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "524b425829891f2761cc",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Building Age"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "78d91417f1703ba09c50",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Total Listings"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b11f1df29f100e6b2b96",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Square Meters"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3c3b4d0f11823e32fb27",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Monthly Rent EUR"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "102367ceafb8e9c3888e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "% With Parking"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "5a13902f1592d552e381",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Amenity Index"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "cb01bdfa866a1775012f",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimLocation"
+                        }
+                      },
+                      "Property": "Country-City"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f585723466c2c1e357ce",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Measure Table"
+                        }
+                      },
+                      "Property": "Avg Floor No"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimLocation"
+                        }
+                      },
+                      "Property": "Country-City"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "72a83ade2d0824a2b4aa": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "5fd90def4185106e9907": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "3699aa9e607ca0ec5adf": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "b8513bf1ddabb3c06df5": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "afdad110688f8f7a4d89": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "007ed54ec89028b6b245": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "32ceb00eadc907acaafa": {
+            "singleVisual": {
+              "visualType": "image",
+              "objects": {}
+            }
+          },
+          "39d8089264bf6301981b": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "27f199c31226a550d03e": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "584b7491808a63b028ef": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "0b6743f2c088450ebef6": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "3ba7c48af952e1109a0b": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "ecd2922245c1c7fb8d51": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "e4df0b74e735ad3c9fc1": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "898b59a8700429342ca4": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "beb70f6981f28a91867e": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "dcbae17aef37e4dcf5de": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          }
+        },
+        "visualContainerGroups": {
+          "ebf037710a907284da84": {
+            "isHidden": true
+          },
+          "d2b3ce1eb3728aaafbfd": {
+            "isHidden": false
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

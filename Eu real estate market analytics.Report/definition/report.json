@@ -1,0 +1,137 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY26SU02",
+      "reportVersionAtImport": {
+        "visual": "2.6.0",
+        "report": "3.1.0",
+        "page": "2.3.0"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "City_Park12583010290473695.json",
+      "reportVersionAtImport": {
+        "visual": "2.7.0",
+        "report": "3.2.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "ZoomChartsScatterChartPaidA2C55E4B59078FDD51C4CD1C4D4E6623V9N8",
+    "ZoomChartsPieChartPaidE77E4ED357DC402ABA005987437CF500",
+    "ZoomChartsDrillDownComboBarProE77E4ED357DC402ABA005987437CF800",
+    "ZoomChartsFacetChartPaidE77E4ED357DC402ABA005987437CF500",
+    "ZoomChartsDrillDownTimelinePro7F6C01BA1C534E9AB4A6BCCB44F591D6",
+    "ZoomChartsAdvancedWaterfallE77E4ED357DC402ABA005987437CF900",
+    "ZoomChartsDrillDownMapPro6AFEEB10499543F282BD06EF315D5EAA"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY26SU02",
+          "path": "BaseThemes/CY26SU02.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "City_Park12583010290473695.json",
+          "path": "City_Park12583010290473695.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "close_46361209123640881030814.png",
+          "path": "close_46361209123640881030814.png",
+          "type": "Image"
+        },
+        {
+          "name": "folder_46739089702011655836275.png",
+          "path": "folder_46739089702011655836275.png",
+          "type": "Image"
+        },
+        {
+          "name": "github40923023111774126.png",
+          "path": "github40923023111774126.png",
+          "type": "Image"
+        },
+        {
+          "name": "linkedin5844331120692348.png",
+          "path": "linkedin5844331120692348.png",
+          "type": "Image"
+        },
+        {
+          "name": "Page_17041610530322046.svg",
+          "path": "Page_17041610530322046.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Page_29987785566636548.svg",
+          "path": "Page_29987785566636548.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Page_37601481376835307.svg",
+          "path": "Page_37601481376835307.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Page_56002618250726764.svg",
+          "path": "Page_56002618250726764.svg",
+          "type": "Image"
+        },
+        {
+          "name": "youtube5604259203622224.png",
+          "path": "youtube5604259203622224.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

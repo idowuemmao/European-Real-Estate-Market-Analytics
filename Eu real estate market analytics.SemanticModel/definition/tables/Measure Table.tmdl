@@ -1,0 +1,1345 @@
+table 'Measure Table'
+	lineageTag: c53ad085-7f36-4f6d-b0cf-dd572a65c4b6
+
+	measure 'Total Listings' = COUNTROWS('FactEURealEstateDataset')
+		formatString: #,0.00
+		displayFolder: Core
+		lineageTag: 204cec86-8347-402c-bd13-3e3dc5faf63c
+
+	measure 'Avg Sale Price EUR' =
+			
+			AVERAGEX(
+			    FILTER('FactEURealEstateDataset', NOT ISBLANK('FactEURealEstateDataset'[sale_price_eur])),
+			    'FactEURealEstateDataset'[sale_price_eur]
+			)
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		displayFolder: Price
+		lineageTag: 5ad3bc8e-ee74-4d57-a676-6d9570734a26
+
+	measure '% Listings' =
+			
+			DIVIDE(
+			    COUNTROWS('FactEURealEstateDataset'),
+			    CALCULATE(COUNTROWS('FactEURealEstateDataset'), ALL('FactEURealEstateDataset'))
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Core
+		lineageTag: 6b1e4b03-41c7-4586-bb01-dc4de384a154
+
+	measure 'Country Count' = DISTINCTCOUNT(DimLocation[country])
+		formatString: 0
+		displayFolder: Core
+		lineageTag: bb0719f1-45e4-4f3c-b44e-b1e7b30fcf5e
+
+	measure 'Avg Square Meters' = AVERAGE('FactEURealEstateDataset'[square_meters])
+		displayFolder: Core
+		lineageTag: 1a5a4201-6c11-4864-96b0-0b78488c407f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Monthly Rent EUR' =
+			
+			AVERAGEX(
+			    FILTER('FactEURealEstateDataset', NOT ISBLANK('FactEURealEstateDataset'[monthly_rent_eur])),
+			    'FactEURealEstateDataset'[monthly_rent_eur]
+			)
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		displayFolder: Price
+		lineageTag: 2cc7b4ea-3f20-46f6-b763-8c53bcffc8a8
+
+	measure 'Avg Price Per SQM' = AVERAGE('FactEURealEstateDataset'[price_per_sqm])
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		displayFolder: Price
+		lineageTag: d94dac64-51e4-42ee-a3e9-7a7a402c0ec7
+
+	measure 'Avg Last Sold Price EUR' =
+			
+			AVERAGEX(
+			    FILTER('FactEURealEstateDataset', NOT ISBLANK('FactEURealEstateDataset'[last_sold_price_eur])),
+			    'FactEURealEstateDataset'[last_sold_price_eur]
+			)
+		formatString: #,0.00
+		displayFolder: Price
+		lineageTag: 97b756ae-8bfe-4a75-b43a-c83768450b6b
+
+	measure 'Price Appreciation %' =
+			
+			DIVIDE(
+			    [Avg Sale Price EUR] - [Avg Last Sold Price EUR],
+			    [Avg Last Sold Price EUR],
+			    BLANK()
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Price
+		lineageTag: 384aaf2d-d4a0-4a77-a16a-2f418607d285
+
+	measure 'Avg Days on Market' = AVERAGE('FactEURealEstateDataset'[days_on_market])
+		formatString: #,0
+		displayFolder: Market
+		lineageTag: 2e2ea87e-7789-4146-82b7-6f17488f04d5
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Avg Building Age' =
+			
+			AVERAGEX(
+			    'FactEURealEstateDataset',
+			    YEAR(MAX('FactEURealEstateDataset'[listing_date])) - 'FactEURealEstateDataset'[year_built]
+			)
+		displayFolder: Core
+		lineageTag: ddfa78e3-8757-4040-9d11-f922ef3062f0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Bedrooms' = AVERAGE('FactEURealEstateDataset'[bedrooms])
+		displayFolder: Core
+		lineageTag: 88e63d95-c7e0-480e-ab22-7834258f738a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Bathrooms' = AVERAGE('FactEURealEstateDataset'[bathrooms])
+		displayFolder: Core
+		lineageTag: fcfcb32c-bc1e-4a6c-9c4f-0e5e9e4969ac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Parking Spots' = AVERAGE('FactEURealEstateDataset'[parking_spots])
+		displayFolder: Core
+		lineageTag: f52205a5-ba42-499f-820a-0aa200027649
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% With Parking' =
+			
+			DIVIDE(
+			    COUNTROWS(FILTER('FactEURealEstateDataset', 'FactEURealEstateDataset'[parking_spots] > 0)),
+			    [Total Listings]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Segment
+		lineageTag: f50b205f-147e-4898-b401-c5379cb65917
+
+	measure 'Amenity Index' = ```
+			
+			AVERAGEX(
+			    'FactEURealEstateDataset',
+			    (
+			        IF('FactEURealEstateDataset'[gym] = "Yes", 1, 0)
+			        + IF('FactEURealEstateDataset'[swimming_pool] = "Yes", 1, 0)
+			        + IF('FactEURealEstateDataset'[elevator] = "Yes", 1, 0)
+			        + IF('FactEURealEstateDataset'[parking_spots] > 0, 1, 0)
+			    ) / 4
+			) 
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Segment
+		lineageTag: 3dd638df-794f-4810-8a48-c4edd2f57e40
+
+	measure 'Elevator Price Premium' =
+			
+			CALCULATE([Avg Sale Price EUR], 'FactEURealEstateDataset'[elevator] = "Yes")
+			    - CALCULATE([Avg Sale Price EUR], 'FactEURealEstateDataset'[elevator] = "No")
+		displayFolder: Segment
+		lineageTag: 1fddbc91-4358-4c09-8fe1-2ca07fabe9f6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gym Price Premium' =
+			
+			CALCULATE([Avg Sale Price EUR], 'FactEURealEstateDataset'[gym] = "Yes")
+			    - CALCULATE([Avg Sale Price EUR], 'FactEURealEstateDataset'[gym] = "No")
+		displayFolder: Segment
+		lineageTag: 51b9b51b-726d-47e8-9692-0484813df3b3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pool Price Premium' =
+			
+			CALCULATE([Avg Sale Price EUR], 'FactEURealEstateDataset'[swimming_pool] = "Yes")
+			    - CALCULATE([Avg Sale Price EUR], 'FactEURealEstateDataset'[swimming_pool] = "No")
+		displayFolder: Segment
+		lineageTag: dc96f168-7317-43eb-9e7f-abef1445c282
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Parking Price Premium' =
+			
+			CALCULATE([Avg Sale Price EUR], 'FactEURealEstateDataset'[parking_spots] > 0)
+			    - CALCULATE([Avg Sale Price EUR], 'FactEURealEstateDataset'[parking_spots] = 0)
+		displayFolder: Segment
+		lineageTag: 5b25a3da-3367-4064-bedd-8919523f809a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Floor No' = AVERAGE('FactEURealEstateDataset'[floor_number])
+		displayFolder: Core
+		lineageTag: 4eeab5a2-4b85-47e5-a8c5-433704a77df4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Amenity Waterfall Change' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Amenity Table'[Amenity]),
+			    "Base Price",     BLANK(),           -- base/total bars don't use Change
+			    "Parking",        [Parking Price Premium],
+			    "Elevator",       [Elevator Price Premium],
+			    "Gym",            [Gym Price Premium],
+			    "Pool",           [Pool Price Premium],
+			    "Premium Total",  BLANK()
+			)
+		displayFolder: Segment
+		lineageTag: 5f4f37bd-d964-4d1c-b4ab-1439c647cc10
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Amenity Waterfall Total' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Amenity Table'[Amenity]),
+			    "Base Price",    [Avg Sale Price EUR],
+			    "Premium Total", [Avg Sale Price EUR]
+			                         + [Parking Price Premium]
+			                         + [Elevator Price Premium]
+			                         + [Gym Price Premium]
+			                         + [Pool Price Premium],
+			    BLANK()
+			)
+		formatString: #,0.00
+		displayFolder: Segment
+		lineageTag: 4283a01d-4492-414d-b1d1-00c02c8d0ab2
+
+	measure 'Amenity Waterfall Label' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Amenity Table'[Amenity]),
+			    "Base Price",    "€" & FORMAT([Avg Sale Price EUR] / 1000, "0") & "K baseline",
+			    "Parking",       "+ €" & FORMAT([Parking Price Premium] / 1000, "0.0") & "K",
+			    "Elevator",      "+ €" & FORMAT([Elevator Price Premium] / 1000, "0.0") & "K",
+			    "Gym",           "+ €" & FORMAT([Gym Price Premium] / 1000, "0.0") & "K",
+			    "Pool",          "+ €" & FORMAT([Pool Price Premium] / 1000, "0.0") & "K",
+			    "Premium Total", "€" & FORMAT(
+			                         ([Avg Sale Price EUR]
+			                          + [Parking Price Premium]
+			                          + [Elevator Price Premium]
+			                          + [Gym Price Premium]
+			                          + [Pool Price Premium]) / 1000, "0") & "K total"
+			)
+		displayFolder: Segment
+		lineageTag: ac7ebb47-4b32-4c1b-8fb8-495359106b79
+
+	measure 'Amenity Threshold 2' =
+			
+			[Avg Sale Price EUR]
+			    + [Parking Price Premium]
+			    + [Elevator Price Premium]
+			    + [Gym Price Premium]
+			    + [Pool Price Premium]
+		displayFolder: Segment
+		lineageTag: d5293ba6-6164-4051-96c1-6297951493a4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Blended Yield' =
+			
+			DIVIDE([Avg Monthly Rent EUR] * 12 , [Avg Sale Price EUR], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Price
+		lineageTag: 3153e36b-3adb-4bd1-9a83-7f4e3b4030f1
+
+	measure 'EU Avg DOM' =
+			
+			CALCULATE(
+			    [Avg Days on Market],
+			    ALL('FactEURealEstateDataset')
+			)
+		formatString: #,0.00
+		displayFolder: Market
+		lineageTag: 31f29e7e-364a-4b1a-9192-3e10e823375f
+
+	measure 'Avg DOM Stale' =
+			
+			AVERAGEX(
+			    FILTER('FactEURealEstateDataset', 'FactEURealEstateDataset'[days_on_market] > 60),
+			    'FactEURealEstateDataset'[days_on_market]
+			)
+		formatString: 0
+		displayFolder: Market
+		lineageTag: 9c2b2a15-fc7d-43fe-85e8-464c666e85e5
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'High Value Slow Count' =
+			
+			COUNTROWS(
+			    FILTER(
+			        'FactEURealEstateDataset',
+			        'FactEURealEstateDataset'[sale_price_eur] >= [Avg Sale Price EUR]
+			            && 'FactEURealEstateDataset'[days_on_market] >= [EU Avg DOM]
+			    )
+			)
+		formatString: #,0.00
+		displayFolder: Market
+		lineageTag: d1e3be79-2327-4253-92e5-13426956d6ef
+
+	measure 'Opportunity Score' =
+			
+			VAR YieldScore =
+			    DIVIDE([Market Blended Yield], 0.10, 0)  -- normalise: 10% yield = score of 1.0
+			VAR DOMScore =
+			    1 - DIVIDE([Avg Days on Market], 180, 0)  -- 0 days = 1.0, 180 days = 0
+			VAR AmenityBonus =
+			    [Amenity Index] * 0.2                     -- small bonus for premium features
+			RETURN
+			    DIVIDE(YieldScore + DOMScore + AmenityBonus, 2.2, 0)  -- normalised 0–1 scale
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Market
+		lineageTag: d54ca39f-07e4-4d6b-a11b-c76390a606cd
+
+	measure 'Opportunity City Count' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(DimLocation[city]),
+			    FILTER(
+			        VALUES(DimLocation[city]),
+			        [Opportunity Score] >= 0.40            -- threshold: top 45th percentile
+			    )
+			)
+		formatString: 0
+		displayFolder: Market
+		lineageTag: edeafd93-134a-46f5-af2a-be33105d92a1
+
+	measure 'Selected KPI Name' =
+			
+			SWITCH(
+			    SELECTEDVALUE('KPI Parameter'[KPI Parameter Order]),
+			    0, "Total Listings",
+			    1, "Avg Sale Price EUR",
+			    2, "Avg Price Per SQM",
+			    3, "Avg Days on Market",
+			    4, "Price Appreciation %",
+			    5, "Avg Monthly Rent EUR"
+			)
+		displayFolder: Selected KPI
+		lineageTag: e2cdcf34-3b69-447c-b96f-c4166ac6f896
+
+	measure 'Title 1' = "How has the " & [Selected KPI Name] & " trended over time — and where are the seasonal peaks?"
+		displayFolder: Titles
+		lineageTag: 73bc6379-48f9-4ae0-8fff-19ed2482b2b4
+
+	measure 'Title 2' = "Does furnishing status meaningfully shift the " & [Selected KPI Name] & " for this market? Drill down to DOM Velocity"
+		displayFolder: Titles
+		lineageTag: 716b7977-c30c-40be-beda-10277f59db2b
+
+	measure 'Title 3' = "Which energy rating band is associated with the highest property values? Drill down to Bedroom Bucket"
+		displayFolder: Titles
+		lineageTag: 9de2fce5-1930-44bd-8014-a5e9f49e862d
+
+	measure 'Title 4' = "What share of "& [Selected KPI Name] & " is for Sale versus for Rent. DRILL THROUGH TO PROPERTY DETAILS"
+		displayFolder: Titles
+		lineageTag: 2d4ebc8c-b609-4354-a9c4-7fde0f865ca9
+
+	measure 'Overlay 2' = "Compares how the " & [Selected KPI Name] & " differs across furnishing categories, helping assess value premiums for furnished properties."
+		displayFolder: Overlays
+		lineageTag: 43943ecf-0074-4d5e-8dcd-7e932d1362e6
+
+	measure 'Overlay 1' = "This visual tracks how the " & [Selected KPI Name] & " evolves over time, enabling identification of trends, seasonality, and market shifts at different time granularities."
+		displayFolder: Overlays
+		lineageTag: 1ed726f9-f113-4dbb-bc67-8b5ca79936a5
+
+	measure 'Overlay 3' = "Shows how sustainability factors (energy ratings) influence the " & [Selected KPI Name] & ", useful for ESG and cost-efficiency analysis."
+		displayFolder: Overlays
+		lineageTag: d6863627-467c-4c43-a6f7-09507b2e527e
+
+	measure 'Overlay 4' = "Breaks down the " & [Selected KPI Name] & " by listing type (rent, sales), highlighting market composition. DRILL THROUGH TO SEE PROPERTY DEEP DIVE PAGE FROM BASED ON LISTING TYPE."
+		displayFolder: Overlays
+		lineageTag: e2d32ed2-ed5f-49b9-842f-3deb35ac8668
+
+	measure 'DOM Title' = FORMAT([Avg Days on Market],"##") & " days"
+		displayFolder: Market
+		lineageTag: b5d304f1-95c5-4404-a211-79ed25c4a017
+
+	measure 'Insight Appreciation' = ```
+			
+			VAR movement = IF([Price Appreciation %] < 0, "Negative", "Positive")
+			VAR app_dep = IF([Price Appreciation %] < 0, "depreciation", "appreciation")
+			RETURN
+			"Property values show " & movement & " growth of " & FORMAT([Price Appreciation %], "0.00%") & 
+			", reflecting capital "& app_dep
+			```
+		displayFolder: Insights
+		lineageTag: 77740781-4f50-4985-9b03-22f3882e5f2d
+
+	measure 'Total Listings YoY%' = ```
+			
+				VAR __PREV_YEAR =
+					CALCULATE(
+						[Total Listings],
+						DATEADD('DimDate'[listing_date], -1, YEAR)
+					)
+				RETURN
+					DIVIDE([Total Listings] - __PREV_YEAR, __PREV_YEAR)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Time Intelligence
+		lineageTag: 80b4038d-b43a-4d1f-9f35-2345b4168ea4
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "YearOverYear"
+				}
+
+		changedProperty = FormatString
+
+	measure 'Insight Listings' = ```
+			
+			VAR movement = IF([Total Listings YoY%] < 0, "decrease", "increase")
+			VAR location = DISTINCTCOUNT(FactEURealEstateDataset[address])
+			RETURN 
+			"Across " & FORMAT(location, "#,##") & 
+			" locations, listings show a YoY " & movement & 
+			" of " & FORMAT([Total Listings YoY%], "0.00%")
+			```
+		displayFolder: Insights
+		lineageTag: c435e267-b851-4db2-a247-eaac2a79b30f
+
+	measure 'Dom Stale title' = FORMAT([Avg DOM Stale], "##") & " days"
+		displayFolder: Market
+		lineageTag: 62e609b7-0b5e-42a9-a405-0b22b732b300
+
+	measure 'Avg Prop Size title' = IF([Avg Square Meters] = BLANK(), "None", FORMAT([Avg Square Meters], "##") & "m²")
+		displayFolder: Core
+		lineageTag: d1e742f9-dafe-4b6a-81cc-22d2f4d0173f
+
+	measure 'Avg Sales Price YoY%' = ```
+			
+				VAR __PREV_YEAR =
+					CALCULATE(
+						[Avg Sale Price EUR],
+						DATEADD('DimDate'[listing_date], -1, YEAR)
+					)
+				RETURN
+					DIVIDE([Avg Sale Price EUR] - __PREV_YEAR, __PREV_YEAR)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Time Intelligence
+		lineageTag: 61c14b67-3528-4ae1-9380-6be7f5694f70
+
+	measure 'Insight AvgPrice' = ```
+			
+			VAR movement = IF([Avg Sales Price YoY%] < 0, "decrease", "increase")
+			RETURN 
+			"Average prices show a YoY " & movement & 
+			" of " & FORMAT([Avg Sales Price YoY%], "0.00%") &
+			", reflecting market value shifts"
+			```
+		displayFolder: Insights
+		lineageTag: b82a44b0-3486-4dcf-8b68-964bbef5b602
+
+	measure 'Insight Price per SQM' = ```
+			
+			VAR movement = IF([Avg Price Per SQM YoY%] < 0, "decline", "growth")
+			RETURN 
+			"Unit pricing shows " & movement & 
+			" of " & FORMAT([Avg Price Per SQM YoY%], "0.00%") &
+			" YoY across markets"
+			```
+		displayFolder: Insights
+		lineageTag: 79a5da06-f637-4ff8-88b1-14a32221ece2
+
+	measure 'Avg Price Per SQM YoY%' = ```
+			
+				VAR __PREV_YEAR =
+					CALCULATE(
+						[Avg Price Per SQM],
+						DATEADD('DimDate'[listing_date], -1, YEAR)
+					)
+				RETURN
+					DIVIDE([Avg Price Per SQM] - __PREV_YEAR, __PREV_YEAR) 
+			```
+		displayFolder: Time Intelligence
+		lineageTag: d09a0227-f920-4539-8bb3-4739fd7bc344
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg DOM YoY Change' = ```
+			
+				VAR __PREV_YEAR =
+					CALCULATE(
+						[Avg Days on Market],
+						DATEADD('DimDate'[listing_date], -1, YEAR)
+					)
+				RETURN
+					DIVIDE([Avg Days on Market] - __PREV_YEAR, __PREV_YEAR)
+			```
+		displayFolder: Time Intelligence
+		lineageTag: 777ff72f-5511-4a7e-8668-4634ed198e12
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Rent YoY%' = ```
+			
+				VAR __PREV_YEAR =
+					CALCULATE(
+						[Avg Monthly Rent EUR],
+						DATEADD('DimDate'[listing_date], -1, YEAR)
+					)
+				RETURN
+					DIVIDE([Avg Monthly Rent EUR] - __PREV_YEAR, __PREV_YEAR)  
+			```
+		displayFolder: Time Intelligence
+		lineageTag: d6ed367c-e454-4719-af4b-48b773d3d55f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Insight DOM' = ```
+			
+			VAR movement = IF([Avg DOM YoY Change] < 0, "slower", "faster")
+			RETURN 
+			"Properties are selling " & movement & 
+			" with a YoY change of " & FORMAT([Avg DOM YoY Change], "0.00") & 
+			" days"
+			```
+		displayFolder: Insights
+		lineageTag: 2e978ecf-fb0c-4684-ad75-b95712000c7d
+
+	measure 'Insight Rent' = ```
+			
+			VAR movement = IF([Avg Rent YoY%] < 0, "decline", "growth")
+			RETURN 
+			"Rental prices show " & movement & 
+			" of " & FORMAT([Avg Rent YoY%], "0.00%") &
+			" YoY, impacting yield potential"
+			```
+		displayFolder: Insights
+		lineageTag: dc77f0e2-18ff-402b-80a8-c6a608c6a507
+
+	measure 'Color energy' = ```
+			
+			VAR currentValue = [Selected KPI Value (Index)]
+			
+			VAR maxValue =
+			    CALCULATE(
+			        MAXX(
+			            VALUES(FactEURealEstateDataset[energy_rating]),
+			            [Selected KPI Value (Index)]
+			        ),
+			        REMOVEFILTERS(FactEURealEstateDataset[energy_rating])
+			    )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    currentValue < 0, "#CD4C46",          
+			    currentValue = maxValue, "#0E7C86",
+			    "#FFFFFF"                             
+			)
+			```
+		displayFolder: Colors
+		lineageTag: ddd5b77b-155d-4fa6-bf9b-391e2ee74d90
+
+	measure 'Selected KPI Value (Index)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('KPI Parameter'[KPI Parameter Order]),
+			    0, [Total Listings],
+			    1, [Avg Sale Price EUR],
+			    2, [Avg Price Per SQM],
+			    3, [Avg Days on Market],
+			    4, [Price Appreciation %],
+			    5, [Avg Monthly Rent EUR]
+			)
+		displayFolder: Selected KPI
+		lineageTag: 8d286306-a045-41d6-8b8e-d61d8b178506
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Color furnishing' = ```
+			
+			VAR currentValue = [Selected KPI Value (Index)]
+			
+			VAR maxValue =
+			    CALCULATE(
+			        MAXX(
+			            VALUES(FactEURealEstateDataset[furnishing_status]),
+			            [Selected KPI Value (Index)]
+			        ),
+			        REMOVEFILTERS(FactEURealEstateDataset[furnishing_status])
+			    )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    currentValue < 0, "#CD4C46",          
+			    currentValue = maxValue, "#0E7C86",
+			    "#FFFFFF"                             
+			)
+			```
+		displayFolder: Colors
+		lineageTag: ded3ed95-848b-42e9-b8d4-b4f2f86756a4
+
+	measure 'Color country' = ```
+			
+			VAR currentValue = [Price Appreciation %]
+			
+			VAR maxValue =
+			    CALCULATE(
+			        MAXX(
+			            VALUES(DimLocation[Country-City]),
+			            [Price Appreciation %]
+			        ),
+			        REMOVEFILTERS(DimLocation[Country-City])
+			    )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    currentValue < 0, "#CD4C46",          
+			    currentValue = maxValue, "#0E7C86",
+			    "#FFFFFF"                             
+			)
+			```
+		displayFolder: Colors
+		lineageTag: aa4dff0c-83b2-4e36-b671-893cde9215f1
+
+	measure 'Insight Size' = ```
+			
+			"Average property size is " & FORMAT([Avg Square Meters], "#,##") & 
+			" sqm, shaping affordability and demand"
+			```
+		displayFolder: Insights
+		lineageTag: 07eb1c53-5974-4c09-9829-6bf6bc99c676
+
+	measure 'Insight Bedroom' = ```
+			
+			"Properties average " & FORMAT([Avg Bedrooms], "0.00") & 
+			" bedrooms, reflecting typical household capacity"
+			```
+		displayFolder: Insights
+		lineageTag: 674ee9f0-033b-4a6e-92ac-ecffff8a0906
+
+	measure 'Insight Bathroom' = ```
+			
+			"Average of " & FORMAT([Avg Bathrooms], "0.00") & 
+			" bathrooms indicates comfort level across listings"
+			```
+		displayFolder: Insights
+		lineageTag: acc04f53-98ce-47d3-ada4-7e0db0dc1a23
+
+	measure 'Insight Parking %' = ```
+			
+			FORMAT([% With Parking], "0.00%") & 
+			" of properties include parking, influencing desirability"
+			```
+		displayFolder: Insights
+		lineageTag: fb1d998d-8222-41c0-98c9-f647683ccc0c
+
+	measure 'Insight Amenity' = ```
+			
+			"Amenity score of " & FORMAT([Amenity Index], "0.00") & 
+			" reflects overall lifestyle offering"
+			```
+		displayFolder: Insights
+		lineageTag: 834e0ef6-610d-4034-9e63-ac861dd3b452
+
+	measure 'Insight Floor' = ```
+			
+			"Average floor level is " & FORMAT([Avg Floor No], "0.00") & 
+			", indicating vertical living trends"
+			```
+		displayFolder: Insights
+		lineageTag: 1c00ab99-c7c2-43dd-a8e0-8483cd674446
+
+	measure 'Insight Yield' = ```
+			
+			"Average rental yield stands at " & FORMAT([Market Blended Yield], "0.00%") & 
+			", indicating income return potential"
+			```
+		displayFolder: Insights
+		lineageTag: cb1f8092-4a6a-4f9f-b6d2-d691029853a1
+
+	measure 'Insight High Value Slow' = ```
+			
+			FORMAT([High Value Slow Count], "#,##") & 
+			" premium listings are slow-moving, signaling pricing inefficiencies"
+			```
+		displayFolder: Insights
+		lineageTag: 487ddddb-315b-488c-ad5c-1e8143f96611
+
+	measure 'Insight Opportunity' = ```
+			
+			"Opportunity score of " & FORMAT([Opportunity Score], "0.00%") & 
+			" highlights overall investment attractiveness"
+			```
+		displayFolder: Insights
+		lineageTag: 03bdfab4-7f9c-4304-b5c6-8bdfa131c568
+
+	measure 'Insight Parking Spots' = ```
+			
+			"Properties average " & FORMAT([Avg Parking Spots], "0.00") & 
+			" parking spaces, enhancing convenience and value"
+			```
+		displayFolder: Insights
+		lineageTag: 97ace149-f53b-484e-b5c4-94e141bc096f
+
+	measure 'Tooltip title' = SELECTEDVALUE(DimLocation[Country-City], "EU Market") & " Market snapshot · "
+		displayFolder: Titles
+		lineageTag: 41784326-ad60-40e4-b861-527a7b2a6bcd
+
+	measure 'Tooltip Property Insight' = ```
+			
+			VAR propertyType = SELECTEDVALUE(FactEURealEstateDataset[property_type])
+			VAR country = SELECTEDVALUE(DimLocation[country])
+			VAR avgSize = [Avg Square Meters]
+			VAR priceSQM = [Avg Price Per SQM]
+			VAR Country_Avg_Price_Per_SQM = 
+			CALCULATE(
+			    [Avg Price Per SQM],
+			    REMOVEFILTERS(DimLocation[country])
+			)
+			VAR diffPct =
+			DIVIDE(
+			    [Avg Price Per SQM] - Country_Avg_Price_Per_SQM,
+			    Country_Avg_Price_Per_SQM
+			)
+			VAR direction = 
+			IF(
+			    diffPct >= 0,
+			    "above",
+			    "below"
+			)
+			RETURN
+			country &
+			" averages " & FORMAT(avgSize, "#,##") & "m² at €" &
+			FORMAT(priceSQM, "#,##") & "/m² — " &
+			direction & " the country average by " &
+			FORMAT(ABS(diffPct), "0.0%")
+			```
+		displayFolder: Titles
+		lineageTag: 72a4bdde-4b38-4886-b737-39dd4293d851
+
+	measure 'Building Age title' = FORMAT([Avg Building Age], "#,##") & "yrs"
+		displayFolder: Core
+		lineageTag: 4be590f6-4da9-47b3-b249-253252121bb4
+
+	measure 'Selected KPI YoY%' = ```
+			
+				VAR __PREV_YEAR =
+					CALCULATE(
+						[Selected KPI Value (Index)],
+						DATEADD('DimDate'[listing_date], -1, YEAR)
+					)
+				RETURN
+					DIVIDE([Selected KPI Value (Index)] - __PREV_YEAR, __PREV_YEAR)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Time Intelligence
+		lineageTag: a2a2b71e-0888-4aaa-a34c-b0a0544201ac
+
+	measure 'Selected Filter 1' = ```
+			
+			VAR Bedroom_bucket = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[Bedroom Bucket]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[Bedroom Bucket])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[Bedroom Bucket]),
+			                FactEURealEstateDataset[Bedroom Bucket],
+			                ", ",
+			                FactEURealEstateDataset[Bedroom Bucket],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR Building_decade = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[Building Decade]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[Building Decade])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[Building Decade]),
+			                FactEURealEstateDataset[Building Decade],
+			                ", ",
+			                FactEURealEstateDataset[Building Decade],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR dom = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[DOM Bucket]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[DOM Bucket])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[DOM Bucket]),
+			                FactEURealEstateDataset[DOM Bucket],
+			                ", ",
+			                FactEURealEstateDataset[DOM Bucket],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR dom_vel = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[DOM Velocity Category]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[DOM Velocity Category])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[DOM Velocity Category]),
+			                FactEURealEstateDataset[DOM Velocity Category],
+			                ", ",
+			                FactEURealEstateDataset[DOM Velocity Category],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR prop_type = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[property_type]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[property_type])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[property_type]),
+			                FactEURealEstateDataset[property_type],
+			                ", ",
+			                FactEURealEstateDataset[property_type],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			RETURN
+			"Bedroom Bucket: " & Bedroom_bucket & " | " &
+			"Building Decade: " & Building_decade & " | " &
+			"Day in Market: " & dom & " | " &
+			"DOM Velocity: " & dom_vel & " | " &
+			"Property Type: " & prop_type
+			```
+		displayFolder: Selected KPI
+		lineageTag: 529158ed-341d-4e69-b6d5-9b287eafccf4
+
+	measure 'Selected Filter 2' = ```
+			
+			VAR year = 
+			    IF (
+			        ISFILTERED(DimDate[listing_date].[Year]),
+			        IF(
+			            COUNTROWS(VALUES(DimDate[listing_date].[Year])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(DimDate[listing_date].[Year]),
+			                DimDate[listing_date].[Year],
+			                ", ",
+			                DimDate[listing_date].[Year],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR quarter = 
+			    IF (
+			        ISFILTERED(DimDate[listing_date].[Quarter]),
+			        IF(
+			            COUNTROWS(VALUES(DimDate[listing_date].[Quarter])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(DimDate[listing_date].[Quarter]),
+			                DimDate[listing_date].[Quarter],
+			                ", ",
+			                DimDate[listing_date].[Quarter],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			VAR month = 
+			    IF (
+			        ISFILTERED(DimDate[listing_date].[Month]),
+			        IF(
+			            COUNTROWS(VALUES(DimDate[listing_date].[Month])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(DimDate[listing_date].[Month]),
+			                DimDate[listing_date].[Month],
+			                ", ",
+			                DimDate[listing_date].[Month],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR dom = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[DOM Bucket]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[DOM Bucket])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[DOM Bucket]),
+			                FactEURealEstateDataset[DOM Bucket],
+			                ", ",
+			                FactEURealEstateDataset[DOM Bucket],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR dom_vel = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[DOM Velocity Category]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[DOM Velocity Category])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[DOM Velocity Category]),
+			                FactEURealEstateDataset[DOM Velocity Category],
+			                ", ",
+			                FactEURealEstateDataset[DOM Velocity Category],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR prop_type = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[property_type]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[property_type])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[property_type]),
+			                FactEURealEstateDataset[property_type],
+			                ", ",
+			                FactEURealEstateDataset[property_type],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR furnish = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[furnishing_status]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[furnishing_status])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[furnishing_status]),
+			                FactEURealEstateDataset[furnishing_status],
+			                ", ",
+			                FactEURealEstateDataset[furnishing_status],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			    
+			VAR band = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[energy_rating]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[energy_rating])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[energy_rating]),
+			                FactEURealEstateDataset[energy_rating],
+			                ", ",
+			                FactEURealEstateDataset[energy_rating],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			
+			RETURN
+			"Year: " & year & " | " &
+			"Quarter: " & quarter & " | " &
+			"Month: " & month & " | " &
+			"Day in Market: " & dom & " | " &
+			"Furnishing Status: " & furnish & " | " &
+			"Energy Rating: " & band & " | " &
+			"Property Type: " & prop_type
+			```
+		displayFolder: Selected KPI
+		lineageTag: 2ace23f9-7787-41e6-ae64-0692f554d79b
+
+	measure 'Selected Filter 3' = ```
+			
+			VAR year = 
+			    IF (
+			        ISFILTERED(DimDate[listing_date].[Year]),
+			        IF(
+			            COUNTROWS(VALUES(DimDate[listing_date].[Year])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(DimDate[listing_date].[Year]),
+			                DimDate[listing_date].[Year],
+			                ", ",
+			                DimDate[listing_date].[Year],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR quarter = 
+			    IF (
+			        ISFILTERED(DimDate[listing_date].[Quarter]),
+			        IF(
+			            COUNTROWS(VALUES(DimDate[listing_date].[Quarter])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(DimDate[listing_date].[Quarter]),
+			                DimDate[listing_date].[Quarter],
+			                ", ",
+			                DimDate[listing_date].[Quarter],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			VAR month = 
+			    IF (
+			        ISFILTERED(DimDate[listing_date].[Month]),
+			        IF(
+			            COUNTROWS(VALUES(DimDate[listing_date].[Month])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(DimDate[listing_date].[Month]),
+			                DimDate[listing_date].[Month],
+			                ", ",
+			                DimDate[listing_date].[Month],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR building_dec = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[Building Decade]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[Building Decade])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[Building Decade]),
+			                FactEURealEstateDataset[Building Decade],
+			                ", ",
+			                FactEURealEstateDataset[Building Decade],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR dom_vel = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[DOM Velocity Category]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[DOM Velocity Category])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[DOM Velocity Category]),
+			                FactEURealEstateDataset[DOM Velocity Category],
+			                ", ",
+			                FactEURealEstateDataset[DOM Velocity Category],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR bedroom = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[Bedroom Bucket]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[Bedroom Bucket])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[Bedroom Bucket]),
+			                FactEURealEstateDataset[Bedroom Bucket],
+			                ", ",
+			                FactEURealEstateDataset[Bedroom Bucket],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			VAR furnish = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[furnishing_status]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[furnishing_status])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[furnishing_status]),
+			                FactEURealEstateDataset[furnishing_status],
+			                ", ",
+			                FactEURealEstateDataset[furnishing_status],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			    
+			VAR band = 
+			    IF (
+			        ISFILTERED(FactEURealEstateDataset[energy_rating]),
+			        IF(
+			            COUNTROWS(VALUES(FactEURealEstateDataset[energy_rating])) = 0,
+			            "N/A",
+			            CONCATENATEX(
+			                VALUES(FactEURealEstateDataset[energy_rating]),
+			                FactEURealEstateDataset[energy_rating],
+			                ", ",
+			                FactEURealEstateDataset[energy_rating],
+			                ASC
+			            )
+			        ),
+			        "All"
+			    )
+			
+			
+			RETURN
+			"Year: " & year & " | " &
+			"Quarter: " & quarter & " | " &
+			"Month: " & month & " | " &
+			"Building Decade: " & building_dec & " | " &
+			"Furnishing Status: " & furnish & " | " &
+			"Energy Rating: " & band & " | " &
+			"Bedroom Bucket: " & bedroom
+			```
+		displayFolder: Selected KPI
+		lineageTag: e64ab3ec-b263-4a61-8bfd-5f19509f698e
+
+	measure 'Yield score' = DIVIDE([Market Blended Yield], 0.10, 0) * 0.5
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Price
+		lineageTag: 7a2f60e1-b393-4b0b-980d-3193700b373a
+
+	measure 'Speed score' = (1 - DIVIDE([Avg Days on Market], 180, 0)) * 0.3
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Core
+		lineageTag: 5e9368cc-c13b-41e0-bcca-111a44edb338
+
+	measure 'Amenity score' = [Amenity Index] * 0.2
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Segment
+		lineageTag: 21133c34-dbae-46b0-8100-21bccebdbd84
+
+	measure 'Top Opportunity Driver' =
+			
+			VAR YS = DIVIDE([Market Blended Yield], 0.10, 0) * 0.5
+			VAR DS = (1 - DIVIDE([Avg Days on Market], 180, 0)) * 0.3
+			VAR AI = [Amenity Index] * 0.2
+			RETURN
+			    SWITCH(TRUE(),
+			        YS >= DS && YS >= AI, "yield strength (" & FORMAT([Market Blended Yield],"0.0%") & ")",
+			        DS >= YS && DS >= AI, "market speed (" & FORMAT([Avg Days on Market],"0") & " days DOM)",
+			        "amenity quality (" & FORMAT([Amenity Index],"0.00") & " index)"
+			    )
+		displayFolder: Market
+		lineageTag: 96954972-a4b5-4189-951b-d8b70f3f834f
+
+	measure 'Top Driver Label' =
+			
+			VAR yieldScore = DIVIDE([Market Blended Yield], 0.10, 0)
+			VAR domScore = 1 - DIVIDE([Avg Days on Market], 180, 0)
+			VAR amenityScore = [Amenity Index] * 0.2
+			
+			VAR maxScore = MAX(yieldScore, MAX(domScore, amenityScore))
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    yieldScore = maxScore, "strong rental yield",
+			    domScore = maxScore, "fast market turnover",
+			    amenityScore = maxScore, "premium amenities",
+			    "balanced factors"
+			)
+		displayFolder: Titles
+		lineageTag: e52c6d0b-ca32-4a21-8e4f-6054e9217365
+
+	measure 'Tooltip Opportunity Insight' =
+			
+			VAR country = SELECTEDVALUE(DimLocation[Country-City])
+			VAR oppScore = [Opportunity Score]
+			VAR yield = [Market Blended Yield]
+			VAR dom = [Avg Days on Market]
+			VAR driver = [Top Driver Label]
+			
+			RETURN
+			country & " scores " & FORMAT(oppScore, "0.00%") &
+			" — driven primarily by " & driver &
+			", with " & FORMAT(yield, "0.00%") &
+			" yield and " & FORMAT(dom, "0") &
+			" days avg day on market"
+		displayFolder: Titles
+		lineageTag: 408e3021-4d88-4b1c-a709-df2787ec5b0e
+
+	measure 'Property Insight' =
+			
+			VAR propid = SELECTEDVALUE(FactEURealEstateDataset[property_id])
+			VAR PropType = SELECTEDVALUE(DimPropImage[property_type])
+			VAR City = SELECTEDVALUE(DimLocation[Country-City])
+			VAR SQM = SELECTEDVALUE(FactEURealEstateDataset[square_meters])
+			VAR PpSQM = SELECTEDVALUE(FactEURealEstateDataset[price_per_sqm])
+			VAR DOM = SELECTEDVALUE(FactEURealEstateDataset[days_on_market])
+			VAR Score = [Opportunity Score]
+			VAR DOMNote = IF(DOM<=30, " — among the fastest-moving stock in this category.", IF(DOM>60, " — slow-absorbing; potential negotiation leverage.", "."))
+			VAR ScoreNote = IF(Score>=0.7, " High-opportunity tier.", IF(Score>=0.5, " Watch tier.", " Monitor for pricing adjustment."))
+			RETURN
+			    propid & " is a " & PropType & " building located in " & City & " spanning " & SQM & "m² at €" & FORMAT(PpSQM,"#,##0") & "/m² · Listed for " & DOM & " days" & DOMNote & " Opportunity score: " & FORMAT(Score,"0.00%") & "." & ScoreNote
+		displayFolder: Insights
+		lineageTag: 4369f0b1-e3b7-430a-bd33-ce493fe42666
+
+	measure Elevator = "Elevator: " & if (SELECTEDVALUE(FactEURealEstateDataset[elevator]) = "Yes", "Yes✅", "No❌")
+		displayFolder: Segment
+		lineageTag: 058fcd77-e969-431d-8a8c-97fafc883c8c
+
+	measure gym = "Gym: " & if (SELECTEDVALUE(FactEURealEstateDataset[gym]) = "Yes", "Yes✅", "No❌")
+		displayFolder: Segment
+		lineageTag: 81226d80-0fd3-44b7-8492-d91ac3438e28
+
+	measure Pool = "Pool: " & if (SELECTEDVALUE(FactEURealEstateDataset[swimming_pool]) = "Yes", "Yes✅", "No❌")
+		displayFolder: Segment
+		lineageTag: 052bd694-b766-4f1e-92a5-a7d71f1235f8
+
+	measure Parking = "Parking: " & if (SELECTEDVALUE(FactEURealEstateDataset[parking_spots]) = 0,"No❌", SELECTEDVALUE(FactEURealEstateDataset[parking_spots])& "✅" )
+		displayFolder: Segment
+		lineageTag: 9ef15776-bc46-49a6-b62e-ad42bbdb28ca
+
+	measure Rent/sales =
+			
+			IF(SELECTEDVALUE(FactEURealEstateDataset[listing_type]) = "Rental" ,
+			("For " & SELECTEDVALUE(FactEURealEstateDataset[listing_type]) & " : " & FORMAT([Avg Monthly Rent EUR], "€ #,##") & "/mon"),
+			("For " & SELECTEDVALUE(FactEURealEstateDataset[listing_type]) & " : " & FORMAT([Avg Sale Price EUR], "€ #,##")))
+		displayFolder: Titles
+		lineageTag: 16299b17-3658-4152-a0e6-918d9c07fd00
+
+	measure Rating = ```
+			"EPC Rating: " & SELECTEDVALUE(FactEURealEstateDataset[energy_rating]) 
+			```
+		displayFolder: Titles
+		lineageTag: e9545ec5-31a1-48f4-a2ae-291529b7b897
+
+	measure Yield/Appr =
+			
+			IF(SELECTEDVALUE(FactEURealEstateDataset[listing_type]) = "Rental" ,
+			"Gross Yield: " & FORMAT([Market Blended Yield], "0.00%"),
+			IF([Price Appreciation %] > 0 , "Price Appreciation: " & FORMAT([Price Appreciation %], "0.00%✅"), "Price Appreciation: " & FORMAT([Price Appreciation %], "0.00%❌") ))
+		displayFolder: Titles
+		lineageTag: cdbcb872-9137-4d04-971b-960e209de401
+
+	measure 'Opp score' = "Opportunity Score: " & IF([Opportunity Score] > 0 , FORMAT([Opportunity Score], "0.00%✅"), FORMAT([Opportunity Score], "0.00%❌") )
+		displayFolder: Titles
+		lineageTag: 2bb97513-2cbb-4706-99c5-55ea83909460
+
+	measure year_built = "Built "&  SELECTEDVALUE(FactEURealEstateDataset[year_built])
+		displayFolder: Titles
+		lineageTag: 0c13bc08-b220-4e11-8cb6-dda3d40f8dd3
+
+	measure prop = ```
+			SELECTEDVALUE(FactEURealEstateDataset[furnishing_status]) & " " & SELECTEDVALUE(FactEURealEstateDataset[property_id]) & " in " & SELECTEDVALUE(FactEURealEstateDataset[address]) 
+			```
+		displayFolder: Titles
+		lineageTag: ca1c0e53-11d0-4cc9-b92e-9f1fbc3f66d5
+
+	measure 'Title 5' = [Selected KPI Name] & " by Property Type."
+		displayFolder: Titles
+		lineageTag: aa91906e-c24c-40aa-bcc6-8e8c11093a6e
+
+	measure 'Color prop_type' = ```
+			
+			VAR currentValue = [Selected KPI Value (Index)]
+			
+			VAR maxValue =
+			    CALCULATE(
+			        MAXX(
+			            VALUES(FactEURealEstateDataset[property_type]),
+			            [Selected KPI Value (Index)]
+			        ),
+			        REMOVEFILTERS(FactEURealEstateDataset[property_type])
+			    )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    currentValue < 0, "#CD4C46",          
+			    currentValue = maxValue, "#0E7C86",
+			    "#FFFFFF"                             
+			)
+			```
+		displayFolder: Colors
+		lineageTag: fb57f8d1-d24b-43cd-bafc-5c83b06cc22e
+
+	measure 'Color date' = ```
+			
+			VAR currentValue = [Selected KPI Value (Index)]
+			
+			VAR maxValue =
+			    CALCULATE(
+			        MAXX(
+			            VALUES(FactEURealEstateDataset[listing_date]),
+			            [Selected KPI Value (Index)]
+			        ),
+			        REMOVEFILTERS(FactEURealEstateDataset[listing_date])
+			    )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    currentValue < 0, "#CD4C46",          
+			    currentValue = maxValue, "#0E7C86",
+			    "#FFFFFF"                             
+			)
+			```
+		displayFolder: Colors
+		lineageTag: 1570c6eb-395b-44ed-af37-496da976996f
+
+	measure 'Rent/sales value' =
+			
+			IF(SELECTEDVALUE(FactEURealEstateDataset[listing_type]) = "Rental" ,
+			FORMAT([Avg Monthly Rent EUR], "€ #,##") & "/mon",
+			 FORMAT([Avg Sale Price EUR], "€ #,##"))
+		displayFolder: Price
+		lineageTag: 255a6d92-0dac-46fa-903d-f952709349f3
+
+	measure 'Title 6' = UPPER(SELECTEDVALUE(FactEURealEstateDataset[listing_type])) & " LISTING - PROPERTY DEEP DIVE"
+		displayFolder: Titles
+		lineageTag: 3783e9cb-ac53-46f5-bd3f-9a1a05c1cb6b
+
+	partition 'Measure Table' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Eu real estate market analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "740a8bda-927a-476c-99de-5e1b0cb2c83e"
+  }
+}

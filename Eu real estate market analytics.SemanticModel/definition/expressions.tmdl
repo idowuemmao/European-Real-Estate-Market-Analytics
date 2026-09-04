@@ -1,0 +1,16 @@
+expression 'Folder Path' = "D:\Challenge_36_Real_Estate_Dataset\" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: 104ac0b8-bf02-4215-966c-df9b94e508a4
+	queryGroup: 'Data Source'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression 'File Path' = "EU_Real_Estate_Dataset.xlsx" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: 49b134cb-b809-441e-80ac-109f654ea3e9
+	queryGroup: 'Data Source'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

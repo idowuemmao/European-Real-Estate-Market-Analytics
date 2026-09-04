@@ -1,0 +1,54 @@
+table Parameter
+	lineageTag: 152a0781-214c-4227-9d9d-6ffeb5449465
+
+	column Parameter
+		lineageTag: bf885795-4f7f-4b71-8687-919dd285050e
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: 70265b38-ce62-4f24-9e85-c9253d694950
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 56958a20-8d03-45ff-81c8-9f271e025a2c
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("Total Listings", NAMEOF('Measure Table'[Total Listings]), 0),
+				    ("Avg Sale Price EUR", NAMEOF('Measure Table'[Avg Sale Price EUR]), 1),
+				    ("Avg Price Per SQM", NAMEOF('Measure Table'[Avg Price Per SQM]), 2),
+				    ("Avg Monthly Rent EUR", NAMEOF('Measure Table'[Avg Monthly Rent EUR]), 3),
+				    ("Avg Days on Market", NAMEOF('Measure Table'[Avg Days on Market]), 4),
+				    ("Avg Building Age", NAMEOF('Measure Table'[Avg Building Age]), 5),
+				    ("Avg Square Meters", NAMEOF('Measure Table'[Avg Square Meters]), 6),
+				    ("Price Appreciation %", NAMEOF('Measure Table'[Price Appreciation %]), 7)
+				}
+
+	annotation PBI_Id = 086a433e1af1404bbc3b8e4f15fb975b
+

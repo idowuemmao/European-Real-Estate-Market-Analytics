@@ -1,0 +1,74 @@
+table DimLocation
+	lineageTag: 79f75227-408a-444c-8a49-1e3b49fa72df
+
+	column latitude
+		dataType: double
+		lineageTag: 888a6b6b-dd71-4b19-993f-9f560039af4e
+		summarizeBy: none
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: 557c0c2d-3dba-435e-9e2b-f0f4fbb4437d
+		summarizeBy: none
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column country
+		dataType: string
+		lineageTag: d1a0f8ce-7559-430b-bc26-4c925a7dd899
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: b1d3e168-00ca-4319-940d-fc0e85608049
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 7b0e5147-68ea-4969-8000-6f4dcf17e654
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country-City
+		dataType: string
+		lineageTag: 46cc87a6-6d66-4361-a038-31c55a369f36
+		summarizeBy: none
+		sourceColumn: Country-City
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimLocation = m
+		mode: import
+		queryGroup: 'Dim Tables'
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(#"Folder Path" & #"File Path"), null, true),
+				    #"EU Real Estate Dataset_Sheet" = Source{[Item="EU Real Estate Dataset",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"EU Real Estate Dataset_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"property_id", type text}, {"listing_date", type date}, {"property_type", type text}, {"listing_type", type text}, {"address", type text}, {"city", type text}, {"country", type text}, {"bedrooms", Int64.Type}, {"bathrooms", Int64.Type}, {"square_meters", Int64.Type}, {"year_built", Int64.Type}, {"sale_price_eur", Int64.Type}, {"monthly_rent_eur", Int64.Type}, {"price_per_sqm", type number}, {"days_on_market", Int64.Type}, {"latitude", type number}, {"longitude", type number}, {"last_sold_price_eur", Int64.Type}, {"parking_spots", Int64.Type}, {"gym", type text}, {"swimming_pool", type text}, {"elevator", type text}, {"furnishing_status", type text}, {"energy_rating", type text}, {"floor_number", Int64.Type}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type",{"latitude", "longitude", "country", "city", "address"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"address"}),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Removed Duplicates", "Country-City", each Text.Combine({[country], [city]}, " - "), type text)
+				in
+				    #"Inserted Merged Column"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

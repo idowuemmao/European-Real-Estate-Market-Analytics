@@ -1,0 +1,44 @@
+table DimPropImage
+	lineageTag: 76c75d1a-1233-4da0-89ac-c0f396ebaf5e
+
+	column property_id
+		dataType: string
+		lineageTag: e461cafd-5358-4204-a7fd-5767740c73e4
+		summarizeBy: none
+		sourceColumn: property_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Property_image
+		dataType: string
+		lineageTag: 23e2f94a-6e5f-4546-837a-da6f0efd29d7
+		summarizeBy: none
+		sourceColumn: Property_image
+
+		annotation SummarizationSetBy = Automatic
+
+	column property_type
+		dataType: string
+		lineageTag: fc9a4c2b-ccc5-46c1-b870-f74d132a9e70
+		summarizeBy: none
+		sourceColumn: property_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimPropImage = m
+		mode: import
+		queryGroup: 'Dim Tables'
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\Challenge_36_Real_Estate_Dataset\EU_Real_Estate_Dataset.xlsx"), null, true),
+				    #"Prop Image_Sheet" = Source{[Item="Prop Image",Kind="Sheet"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(#"Prop Image_Sheet",{{"Column1", type text}, {"Column2", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"property_id", type text}, {"Property_image", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

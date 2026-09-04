@@ -1,0 +1,301 @@
+table FactEURealEstateDataset
+	lineageTag: 1f516c65-1362-4d35-8913-3702df33e1f1
+
+	column property_id
+		dataType: string
+		lineageTag: 4c8aae91-be73-47da-aaaa-f2514719a1be
+		summarizeBy: none
+		sourceColumn: property_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column listing_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 384b10f9-9fd9-4ac3-bfca-ca1425988b1a
+		summarizeBy: none
+		sourceColumn: listing_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column listing_type
+		dataType: string
+		lineageTag: bf0c40c5-a573-402a-82ac-80e4fb6a32ac
+		summarizeBy: none
+		sourceColumn: listing_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: b8f61f6e-c10d-4150-94f5-b5d4277a0c8f
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column bedrooms
+		dataType: int64
+		formatString: 0
+		lineageTag: ddee81c2-b2b9-4d6f-bcc5-b42deb1104e3
+		summarizeBy: sum
+		sourceColumn: bedrooms
+
+		annotation SummarizationSetBy = Automatic
+
+	column bathrooms
+		dataType: int64
+		formatString: 0
+		lineageTag: a1680010-75d4-4226-9ffb-115b9d6a019f
+		summarizeBy: sum
+		sourceColumn: bathrooms
+
+		annotation SummarizationSetBy = Automatic
+
+	column square_meters
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e1c034f-efda-4c28-a3e2-67d1a8659caa
+		summarizeBy: sum
+		sourceColumn: square_meters
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_built
+		dataType: int64
+		formatString: 0
+		lineageTag: 09a67392-3224-49ef-8e41-74d7cd29612b
+		summarizeBy: sum
+		sourceColumn: year_built
+
+		annotation SummarizationSetBy = Automatic
+
+	column sale_price_eur
+		dataType: int64
+		formatString: 0
+		lineageTag: d4c99484-af11-43f3-baab-f4ae3adddbde
+		summarizeBy: sum
+		sourceColumn: sale_price_eur
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_rent_eur
+		dataType: int64
+		formatString: 0
+		lineageTag: 209820bf-d4b6-4a97-9dfb-a697ac62f7d8
+		summarizeBy: sum
+		sourceColumn: monthly_rent_eur
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_per_sqm
+		dataType: double
+		lineageTag: 79987121-d50a-4892-a16b-cf6153149eda
+		summarizeBy: sum
+		sourceColumn: price_per_sqm
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column days_on_market
+		dataType: int64
+		formatString: 0
+		lineageTag: 9226737c-8342-4113-ac1e-fbe307f2abf3
+		summarizeBy: sum
+		sourceColumn: days_on_market
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_sold_price_eur
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c9cb88c-a1c5-49c7-80d6-b9bfb943a00e
+		summarizeBy: sum
+		sourceColumn: last_sold_price_eur
+
+		annotation SummarizationSetBy = Automatic
+
+	column parking_spots
+		dataType: int64
+		formatString: 0
+		lineageTag: 9cd7965a-c9b4-4d8d-9018-0b62c107a0a2
+		summarizeBy: sum
+		sourceColumn: parking_spots
+
+		annotation SummarizationSetBy = Automatic
+
+	column gym
+		dataType: string
+		lineageTag: 95218299-ffaf-4478-9d61-bf23ab31f011
+		summarizeBy: none
+		sourceColumn: gym
+
+		annotation SummarizationSetBy = Automatic
+
+	column swimming_pool
+		dataType: string
+		lineageTag: b2d79d2c-fc12-41c5-aabd-542e6a285e46
+		summarizeBy: none
+		sourceColumn: swimming_pool
+
+		annotation SummarizationSetBy = Automatic
+
+	column elevator
+		dataType: string
+		lineageTag: e7c74002-18c3-4ffa-9fd1-0bdc66a6551d
+		summarizeBy: none
+		sourceColumn: elevator
+
+		annotation SummarizationSetBy = Automatic
+
+	column furnishing_status
+		dataType: string
+		lineageTag: 7f49581d-0d75-4baf-b10f-30047d104c9a
+		summarizeBy: none
+		sourceColumn: furnishing_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column energy_rating
+		dataType: string
+		lineageTag: 303da6cf-7003-47b6-9dea-b6b9d71598b8
+		summarizeBy: none
+		sourceColumn: energy_rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column floor_number
+		dataType: int64
+		formatString: 0
+		lineageTag: 5903eb41-8476-4312-9cf1-fd9909a5f9ff
+		summarizeBy: sum
+		sourceColumn: floor_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Building Decade' =
+			
+			SWITCH(
+			    TRUE(),
+			    'FactEURealEstateDataset'[year_built] < 1960, "Pre-1960",
+			    'FactEURealEstateDataset'[year_built] < 1970, "1960s",
+			    'FactEURealEstateDataset'[year_built] < 1980, "1970s",
+			    'FactEURealEstateDataset'[year_built] < 1990, "1980s",
+			    'FactEURealEstateDataset'[year_built] < 2000, "1990s",
+			    'FactEURealEstateDataset'[year_built] < 2010, "2000s",
+			    'FactEURealEstateDataset'[year_built] < 2020, "2010s",
+			    "2020s"
+			)
+		lineageTag: bf949bed-647c-40d5-bb94-f0aa316f945d
+		summarizeBy: none
+		sortByColumn: 'Building Decade Category'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bedroom Bucket' =
+			
+			SWITCH(
+			    TRUE(),
+			    'FactEURealEstateDataset'[bedrooms] <= 1, "0–1 bed",
+			    'FactEURealEstateDataset'[bedrooms] = 2,  "2 bed",
+			    'FactEURealEstateDataset'[bedrooms] = 3,  "3 bed",
+			    'FactEURealEstateDataset'[bedrooms] = 4,  "4 bed",
+			    "5+ bed"
+			)
+		lineageTag: e635bc37-ff57-42cc-957d-8c02ec9aac15
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DOM Bucket' =
+			
+			SWITCH(
+			    TRUE(),
+			    'FactEURealEstateDataset'[days_on_market] <= 15,  "0–15 days",
+			    'FactEURealEstateDataset'[days_on_market] <= 30,  "16–30 days",
+			    'FactEURealEstateDataset'[days_on_market] <= 60,  "31–60 days",
+			    'FactEURealEstateDataset'[days_on_market] <= 90,  "61–90 days",
+			    'FactEURealEstateDataset'[days_on_market] <= 120, "91–120 days",
+			    "120+ days"
+			)
+		lineageTag: f77871dd-382d-4207-931f-30f8ecfc06a0
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Building Decade Category' =
+			
+			SWITCH(
+			    TRUE(),
+			    'FactEURealEstateDataset'[year_built] < 1960, 1,
+			    'FactEURealEstateDataset'[year_built] < 1970, 2 ,
+			    'FactEURealEstateDataset'[year_built] < 1980, 3,
+			    'FactEURealEstateDataset'[year_built] < 1990, 4,
+			    'FactEURealEstateDataset'[year_built] < 2000, 5,
+			    'FactEURealEstateDataset'[year_built] < 2010, 6,
+			    'FactEURealEstateDataset'[year_built] < 2020, 7,
+			    8
+			)
+		formatString: 0
+		lineageTag: 3aec3d33-688b-47f8-b44c-9830d3008354
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DOM Velocity Category' =
+			
+			SWITCH(
+			    TRUE(),
+			    'FactEURealEstateDataset'[days_on_market] <= 30, "Fast < 30D",
+			    'FactEURealEstateDataset'[days_on_market] <= 60, "Medium 30D-60D",
+			    'FactEURealEstateDataset'[days_on_market] <= 90, "Slow 60D-90D",
+			    "Stale >90D"
+			)
+		lineageTag: 3857e937-db19-480e-b0e2-39f1e19fbc5d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PropertyType ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: e060a02c-97f6-43c9-b445-37441ccf8a1d
+		summarizeBy: count
+		sourceColumn: PropertyType ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column property_type
+		dataType: string
+		lineageTag: b64d7352-a20d-4ba6-884c-35aaafac11d7
+		summarizeBy: none
+		sourceColumn: property_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactEURealEstateDataset = m
+		mode: import
+		queryGroup: 'Fact Tables'
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(#"Folder Path" & #"File Path"), null, true),
+				    #"EU Real Estate Dataset_Sheet" = Source{[Item="EU Real Estate Dataset",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"EU Real Estate Dataset_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"property_id", type text}, {"listing_date", type date}, {"property_type", type text}, {"listing_type", type text}, {"address", type text}, {"city", type text}, {"country", type text}, {"bedrooms", Int64.Type}, {"bathrooms", Int64.Type}, {"square_meters", Int64.Type}, {"year_built", Int64.Type}, {"sale_price_eur", Int64.Type}, {"monthly_rent_eur", Int64.Type}, {"price_per_sqm", type number}, {"days_on_market", Int64.Type}, {"latitude", type number}, {"longitude", type number}, {"last_sold_price_eur", Int64.Type}, {"parking_spots", Int64.Type}, {"gym", type text}, {"swimming_pool", type text}, {"elevator", type text}, {"furnishing_status", type text}, {"energy_rating", type text}, {"floor_number", Int64.Type}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Changed Type", "PropertyType ID", each if [property_type] = "Townhouse" then 1 else if [property_type] = "Apartment" then 2 else if [property_type] = "Office" then 3 else if [property_type] = "VIlla" then 4 else if [property_type] = "Mixed-Use" then 5 else if [property_type] = "Warehouse" then 6 else 7),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Conditional Column",{{"PropertyType ID", Int64.Type}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type1",{"property_id", "listing_date", "listing_type", "address", "city", "country", "bedrooms", "bathrooms", "square_meters", "year_built", "sale_price_eur", "PropertyType ID", "monthly_rent_eur", "price_per_sqm", "days_on_market", "latitude", "longitude", "last_sold_price_eur", "parking_spots", "gym", "swimming_pool", "elevator", "furnishing_status", "energy_rating", "floor_number"}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Reordered Columns",{"city", "country", "latitude", "longitude"}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Removed Columns1",null,"Not Specified",Replacer.ReplaceValue,{"furnishing_status"})
+				in
+				    #"Replaced Value"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

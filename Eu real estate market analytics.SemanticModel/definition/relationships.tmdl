@@ -1,0 +1,20 @@
+relationship 60ed413a-fcfe-412a-96b9-2b097f11e9ee
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.listing_date
+	toColumn: LocalDateTable_ef1fe01d-299a-4c1e-88b5-4c605836704f.Date
+
+relationship AutoDetected_f3c4457d-bc3c-454a-8e31-a8a672cb150e
+	crossFilteringBehavior: bothDirections
+	fromColumn: FactEURealEstateDataset.address
+	toColumn: DimLocation.address
+
+relationship 52285593-eb37-70e1-8335-4343efd80f57
+	fromColumn: FactEURealEstateDataset.listing_date
+	toColumn: DimDate.listing_date
+
+relationship AutoDetected_cc180748-d140-4bc4-890d-7e18248c56a0
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: DimPropImage.property_id
+	toColumn: FactEURealEstateDataset.property_id
+

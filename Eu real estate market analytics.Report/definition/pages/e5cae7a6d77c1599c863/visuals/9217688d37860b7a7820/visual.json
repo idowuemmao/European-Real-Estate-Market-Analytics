@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "9217688d37860b7a7820",
+  "position": {
+    "x": 35.079666406666064,
+    "y": 217.05925865044787,
+    "z": 16000,
+    "height": 54.260869565217391,
+    "width": 1856.2017346058415,
+    "tabOrder": 17000
+  },
+  "visualGroup": {
+    "displayName": "Ref Texts",
+    "groupMode": "ScaleMode"
+  }
+}

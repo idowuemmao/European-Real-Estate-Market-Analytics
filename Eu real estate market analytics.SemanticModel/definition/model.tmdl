@@ -1,0 +1,40 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 'Data Source'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Fact Tables'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'Dim Tables'
+
+	annotation PBI_QueryGroupOrder = 2
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["FactEURealEstateDataset","Summary","Measure Table","Amenity Table","DimLocation","DimPropImage","DimDate","Folder Path","File Path"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table FactEURealEstateDataset
+ref table DateTableTemplate_dd4ac9a7-6043-4ec0-bfc2-e2136f963589
+ref table Summary
+ref table 'Measure Table'
+ref table 'Amenity Table'
+ref table Parameter
+ref table 'KPI Parameter'
+ref table DimLocation
+ref table DimDate
+ref table LocalDateTable_ef1fe01d-299a-4c1e-88b5-4c605836704f
+ref table DimPropImage
+
+ref cultureInfo en-US
+

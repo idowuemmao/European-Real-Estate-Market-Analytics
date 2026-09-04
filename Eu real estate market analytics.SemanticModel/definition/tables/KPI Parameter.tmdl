@@ -1,0 +1,52 @@
+table 'KPI Parameter'
+	lineageTag: ef68e9c3-c03b-4be7-8b7a-1e79b3b19733
+
+	column 'KPI Parameter'
+		lineageTag: d08073be-cd5e-4203-a381-5f71f6fa650e
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'KPI Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'KPI Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'KPI Parameter Fields'
+		isHidden
+		lineageTag: 2512b701-d53a-4d82-986e-8398ce42637d
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'KPI Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'KPI Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 89b61588-437d-4cbc-b960-ca3050158fcd
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'KPI Parameter' = calculated
+		mode: import
+		source =
+				{
+				    ("Total Listings", NAMEOF('Measure Table'[Total Listings]), 0),
+				    ("Avg Sale Price EUR", NAMEOF('Measure Table'[Avg Sale Price EUR]), 1),
+				    ("Avg Price Per SQM", NAMEOF('Measure Table'[Avg Price Per SQM]), 2),
+				    ("Avg Days on Market", NAMEOF('Measure Table'[Avg Days on Market]), 3),
+				    ("Price Appreciation %", NAMEOF('Measure Table'[Price Appreciation %]), 4),
+				    ("Avg Monthly Rent EUR", NAMEOF('Measure Table'[Avg Monthly Rent EUR]), 5)
+				}
+
+	annotation PBI_Id = c662f30bca214ed98a6b871d9faf7249
+

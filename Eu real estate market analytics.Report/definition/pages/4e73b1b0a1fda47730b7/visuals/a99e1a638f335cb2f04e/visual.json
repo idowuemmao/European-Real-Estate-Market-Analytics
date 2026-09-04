@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "a99e1a638f335cb2f04e",
+  "position": {
+    "x": 34.733897106951176,
+    "y": 779.79251734520221,
+    "z": 12000,
+    "height": 191.82406074093467,
+    "width": 135.7245712789632,
+    "tabOrder": 12000
+  },
+  "visualGroup": {
+    "displayName": "Social media",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}

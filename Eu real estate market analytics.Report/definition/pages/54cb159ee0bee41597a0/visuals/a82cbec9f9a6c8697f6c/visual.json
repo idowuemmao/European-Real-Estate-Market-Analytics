@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "a82cbec9f9a6c8697f6c",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 94.08,
+    "width": 320.15999999999997,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "image",
+    "objects": {
+      "image": [
+        {
+          "properties": {
+            "sourceType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'imageData'"
+                }
+              }
+            },
+            "sourceField": {
+              "expr": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimPropImage"
+                        }
+                      },
+                      "Property": "Property_image"
+                    }
+                  },
+                  "Function": 3
+                }
+              }
+            },
+            "fit": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fill'"
+                }
+              }
+            },
+            "effects": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "sourceUrl": {
+              "expr": {
+                "Literal": {
+                  "Value": "'https://imgs.search.brave.com/6KFCSbT8wZi0ctoqVSIw1GDk36HCQUjo1oBIuiOIoi8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cGxhbmJjb250cmFj/dG9ycy5jb20vd3At/Y29udGVudC91cGxv/YWRzLzIwMjQvMDYv/RXhwbG9yZV90aGVf/QmVuZWZpdHNfb2Zf/TWl4ZWQtVXNlX0J1/aWxkaW5nc190b19F/bmhhbmNlX0NvbW11/bml0aWVzLmpwZw'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

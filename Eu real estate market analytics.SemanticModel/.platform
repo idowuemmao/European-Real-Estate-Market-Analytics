@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Eu real estate market analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "bbbae313-bfc6-4c5d-97e8-f56e48440317"
+  }
+}

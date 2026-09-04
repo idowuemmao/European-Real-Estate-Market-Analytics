@@ -1,0 +1,87 @@
+table DimDate
+	lineageTag: 067af6c5-03cf-4e43-9f75-8a39f08c0408
+
+	column listing_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7bccb71b-2873-4ea6-ad38-f21ba4a86a0a
+		summarizeBy: none
+		sourceColumn: listing_date
+
+		variation Variation
+			isDefault
+			relationship: 60ed413a-fcfe-412a-96b9-2b097f11e9ee
+			defaultHierarchy: LocalDateTable_ef1fe01d-299a-4c1e-88b5-4c605836704f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: ad3ec067-6e1c-4af9-b8f1-ec62e6d2afe6
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 533e7785-067d-43ab-ba36-05ffc09c3a73
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: fca3f26d-5dca-47a0-bd65-fdc1d0a768d5
+		summarizeBy: none
+		sourceColumn: Day Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 6d2ba9f1-91bb-411f-8360-54c923acd7ab
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		lineageTag: eef79b26-85fc-4e9b-a7a1-56202cc7c1a3
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = m
+		mode: import
+		queryGroup: 'Dim Tables'
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(#"Folder Path" & #"File Path"), null, true),
+				    #"EU Real Estate Dataset_Sheet" = Source{[Item="EU Real Estate Dataset",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"EU Real Estate Dataset_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"property_id", type text}, {"listing_date", type date}, {"property_type", type text}, {"listing_type", type text}, {"address", type text}, {"city", type text}, {"country", type text}, {"bedrooms", Int64.Type}, {"bathrooms", Int64.Type}, {"square_meters", Int64.Type}, {"year_built", Int64.Type}, {"sale_price_eur", Int64.Type}, {"monthly_rent_eur", Int64.Type}, {"price_per_sqm", type number}, {"days_on_market", Int64.Type}, {"latitude", type number}, {"longitude", type number}, {"last_sold_price_eur", Int64.Type}, {"parking_spots", Int64.Type}, {"gym", type text}, {"swimming_pool", type text}, {"elevator", type text}, {"furnishing_status", type text}, {"energy_rating", type text}, {"floor_number", Int64.Type}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type",{"listing_date"}),
+				    #"Inserted Year" = Table.AddColumn(#"Removed Other Columns", "Year", each Date.Year([listing_date]), Int64.Type),
+				    #"Removed Duplicates" = Table.Distinct(#"Inserted Year", {"listing_date"}),
+				    #"Inserted Month" = Table.AddColumn(#"Removed Duplicates", "Month", each Date.Month([listing_date]), Int64.Type),
+				    #"Inserted Day Name" = Table.AddColumn(#"Inserted Month", "Day Name", each Date.DayOfWeekName([listing_date]), type text),
+				    #"Inserted Month Name" = Table.AddColumn(#"Inserted Day Name", "Month Name", each Date.MonthName([listing_date]), type text),
+				    #"Inserted Quarter" = Table.AddColumn(#"Inserted Month Name", "Quarter", each Date.QuarterOfYear([listing_date]), Int64.Type),
+				    #"Added Prefix" = Table.TransformColumns(#"Inserted Quarter", {{"Quarter", each "Qtr " & Text.From(_, "en-US"), type text}}),
+				    #"Extracted First Characters" = Table.TransformColumns(#"Added Prefix", {{"Month Name", each Text.Start(_, 3), type text}}),
+				    #"Extracted First Characters1" = Table.TransformColumns(#"Extracted First Characters", {{"Day Name", each Text.Start(_, 3), type text}})
+				in
+				    #"Extracted First Characters1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

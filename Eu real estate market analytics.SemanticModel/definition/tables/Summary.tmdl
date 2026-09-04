@@ -1,0 +1,43 @@
+table Summary
+	isHidden
+	lineageTag: 587ec51e-07eb-44e5-83a9-75dbd67636e4
+
+	column 'EU Real Estate Dataset — Final Validated'
+		dataType: string
+		isHidden
+		lineageTag: da82747e-16e4-4ba8-b7e9-b17c54bea328
+		summarizeBy: none
+		sourceColumn: EU Real Estate Dataset — Final Validated
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column2
+		dataType: string
+		isHidden
+		lineageTag: 3a4a10c2-b390-4695-9218-c7dfb7fd22ec
+		summarizeBy: none
+		sourceColumn: Column2
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Summary = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(#"Folder Path" & #"File Path"), null, true),
+				    Summary_Sheet = Source{[Item="Summary",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Summary_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"EU Real Estate Dataset — Final Validated", type text}, {"Column2", type any}})
+				in
+				    #"Changed Type"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "b3b35ce1ee4239cfbb5d",
+  "position": {
+    "x": -0.47206956521738996,
+    "y": 1012.9905482041588,
+    "z": 17000,
+    "height": 60.251190926275932,
+    "width": 1919.97,
+    "tabOrder": 16000
+  },
+  "visualGroup": {
+    "displayName": "Insight text",
+    "groupMode": "ScaleMode"
+  }
+}
